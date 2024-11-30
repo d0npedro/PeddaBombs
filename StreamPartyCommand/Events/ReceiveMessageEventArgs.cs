@@ -1,6 +1,4 @@
-﻿using CatCore.Models.Shared;
-using CatCore.Services.Interfaces;
-using CatCore.Services.Multiplexer;
+﻿using CatCore.Services.Multiplexer;
 using System;
 
 namespace StreamPartyCommand.Events

@@ -18,12 +18,7 @@ namespace StreamPartyCommand.Utilities
         static CustomNoteUtil()
         {
             s_customNoteController = Type.GetType("CustomNotes.Managers.CustomNoteController, CustomNotes");
-            if (s_customNoteController == null) {
-                s_customNoteControllerColorInfo = null;
-            }
-            else {
-                s_customNoteControllerColorInfo = s_customNoteController.GetProperty("Color", BindingFlags.Instance | BindingFlags.Public);
-            }
+            s_customNoteControllerColorInfo = s_customNoteController?.GetProperty("Color", BindingFlags.Instance | BindingFlags.Public);
         }
 
         [Inject]
@@ -31,12 +26,7 @@ namespace StreamPartyCommand.Utilities
         {
             this.IsInstallCustomNote = PluginManager.GetPluginFromId("Custom Notes") != null;
             var loaderType = Type.GetType("CustomNotes.Managers.NoteAssetLoader, CustomNotes");
-            if (loaderType == null) {
-                this._loader = null;
-            }
-            else {
-                this._loader = container.TryResolve(loaderType);
-            }
+            this._loader = loaderType == null ? null : container.TryResolve(loaderType);
         }
 
         public static bool TryGetColorNoteVisuals(GameObject gameObject, out ColorNoteVisuals colorNoteVisuals)

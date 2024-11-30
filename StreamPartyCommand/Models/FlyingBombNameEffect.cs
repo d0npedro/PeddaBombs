@@ -1,5 +1,5 @@
 ﻿using StreamPartyCommand.Configuration;
-using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -8,24 +8,30 @@ namespace StreamPartyCommand.Models
 {
     public class FlyingBombNameEffect : FlyingObjectEffect
     {
-        private void Awake()
+        public void Initialize()
         {
-            try {
-                this._text = this.gameObject.GetComponent<TextMeshPro>();
-                if (this._text == null) {
-                    this._text = this.gameObject.AddComponent<TextMeshPro>();
-                }
-                if (FontAssetReader.instance.MainFont != null) {
-                    this._text.font = FontAssetReader.instance.MainFont;
-                }
-                this._text.alignment = TextAlignmentOptions.Center;
-                this._text.fontSize = 30;
-                this.gameObject.layer = PluginConfig.Instance.NameObjectLayer;
+            if (!this.gameObject.activeSelf) {
+                this.gameObject.SetActive(true);
             }
-            catch (Exception e) {
-                Logger.Error(e);
-            }
+            _ = this.StartCoroutine(this.SetParams());
         }
+
+        public IEnumerator SetParams()
+        {
+            this._text = this.gameObject.GetComponent<TextMeshPro>();
+            if (this._text == null) {
+                this._text = this.gameObject.AddComponent<TextMeshPro>();
+            }
+            yield return new WaitWhile(() => !this._text);
+            if (this._fontAssetReader.MainFont != null) {
+                this._text.font = this._fontAssetReader.MainFont;
+            }
+            this._text.alignment = TextAlignmentOptions.Center;
+            this._text.fontSize = 30;
+            this.gameObject.layer = PluginConfig.Instance.NameObjectLayer;
+            this.gameObject.SetActive(false);
+        }
+
         public virtual void InitAndPresent(string text, float duration, Vector3 targetPos, Quaternion rotation, Color color, float fontSize, bool shake)
         {
             this._color = color;
@@ -34,7 +40,7 @@ namespace StreamPartyCommand.Models
             base.InitAndPresent(duration, targetPos, rotation, shake);
         }
 
-        protected override void ManualUpdate(float t)
+        public override void ManualUpdate(float t)
         {
             this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
         }
@@ -42,9 +48,36 @@ namespace StreamPartyCommand.Models
         private TextMeshPro _text;
         private Color _color;
         private readonly AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
+        private FontAssetReader _fontAssetReader;
+        [Inject]
+        public void Constractor(FontAssetReader fontAssetReader)
+        {
+            this._fontAssetReader = fontAssetReader;
+        }
 
         public class Pool : MonoMemoryPool<FlyingBombNameEffect>
         {
+            protected override void OnCreated(FlyingBombNameEffect item)
+            {
+                base.OnCreated(item);
+                item._text = item.gameObject.GetComponent<TextMeshPro>();
+                if (item._text == null) {
+                    item._text = item.gameObject.AddComponent<TextMeshPro>();
+                }
+                item.Initialize();
+            }
+
+            //private FontAssetReader _fontAssetReader;
+            //[Inject]
+            //public void Constractor(FontAssetReader fontAssetReader)
+            //{
+            //    this._fontAssetReader = fontAssetReader;
+            //}
+            //protected override void OnCreated(FlyingBombNameEffect item)
+            //{
+            //    base.OnCreated(item);
+            //    item._fontAssetReader = this._fontAssetReader;
+            //}
         }
     }
 }

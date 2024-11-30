@@ -1,19 +1,22 @@
-﻿using BeatSaberMarkupLanguage;
+﻿using AssetBundleLoadingTools.Utilities;
+using BeatSaberMarkupLanguage;
+using SiraUtil.Zenject;
 using System;
-using System.Collections;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
 namespace StreamPartyCommand.Models
 {
-    public class FontAssetReader : PersistentSingleton<FontAssetReader>
+    public class FontAssetReader : MonoBehaviour, IAsyncInitializable
     {
         private static readonly string FontAssetPath = Path.Combine(Environment.CurrentDirectory, "UserData", "SPCFontAssets");
         private static readonly string MainFontPath = Path.Combine(FontAssetPath, "Main");
 
         private static Shader _tmpNoGlowFontShader;
-        public static Shader TMPNoGlowFontShader => _tmpNoGlowFontShader ?? (_tmpNoGlowFontShader = BeatSaberUI.MainTextFont == null ? null : BeatSaberUI.MainTextFont.material.shader);
+        public static Shader TMPNoGlowFontShader => _tmpNoGlowFontShader ?? (_tmpNoGlowFontShader = BeatSaberUI.MainTextFont?.material.shader);
 
         public bool IsInitialized { get; private set; } = false;
 
@@ -33,34 +36,30 @@ namespace StreamPartyCommand.Models
             }
             private set => this._mainFont = value;
         }
-        private void Awake()
-        {
-            HMMainThreadDispatcher.instance.Enqueue(this.CreateChatFont());
-        }
 
-        public IEnumerator CreateChatFont()
+        public async Task CreateChatFont()
         {
             this.IsInitialized = false;
-            yield return new WaitWhile(() => TMPNoGlowFontShader == null);
+            while (TMPNoGlowFontShader == null) {
+                await Task.Yield();
+            }
             if (this.MainFont != null) {
                 Destroy(this.MainFont);
             }
             if (!Directory.Exists(MainFontPath)) {
-                Directory.CreateDirectory(MainFontPath);
+                _ = Directory.CreateDirectory(MainFontPath);
             }
-            TMP_FontAsset asset = null;
+
             AssetBundle bundle = null;
             foreach (var filename in Directory.EnumerateFiles(MainFontPath, "*.assets", SearchOption.TopDirectoryOnly)) {
-                using (var fs = File.OpenRead(filename)) {
-                    bundle = AssetBundle.LoadFromStream(fs);
-                }
+                bundle = await AssetBundleExtensions.LoadFromFileAsync(filename);
                 if (bundle != null) {
                     break;
                 }
             }
             if (bundle != null) {
                 foreach (var bundleItem in bundle.GetAllAssetNames()) {
-                    asset = bundle.LoadAsset<TMP_FontAsset>(Path.GetFileNameWithoutExtension(bundleItem));
+                    var asset = await AssetBundleExtensions.LoadAssetAsync<TMP_FontAsset>(bundle, bundleItem);
                     if (asset != null) {
                         this.MainFont = asset;
                         bundle.Unload(false);
@@ -70,6 +69,11 @@ namespace StreamPartyCommand.Models
             }
 
             this.IsInitialized = true;
+        }
+
+        public async Task InitializeAsync(CancellationToken token)
+        {
+            await this.CreateChatFont();
         }
     }
 }

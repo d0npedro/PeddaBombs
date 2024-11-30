@@ -56,7 +56,7 @@ namespace StreamPartyCommand.Views
         #region // パブリックメソッド
         public void Initialize()
         {
-            BSMLSettings.instance.AddSettingsMenu("<size=80%>StreamPartyCommand</size>", this.ResourceName, this);
+            BSMLSettings.Instance.AddSettingsMenu("<size=80%>StreamPartyCommand</size>", this.ResourceName, this);
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*

@@ -12,7 +12,7 @@ namespace StreamPartyCommand.Models
         #region // パブリックメソッド
         public void Awake()
         {
-            CustomNoteUtil.TryGetColorNoteVisuals(this.gameObject, out this._colorNoteVisuals);
+            _ = CustomNoteUtil.TryGetColorNoteVisuals(this.gameObject, out this._colorNoteVisuals);
             this._noteController = this.gameObject.GetComponent<NoteController>();
             this._noteController.didInitEvent.Add(this);
             this._noteController.noteDidFinishJumpEvent.Add(this);
@@ -43,7 +43,6 @@ namespace StreamPartyCommand.Models
                                 propertyBlockController.ApplyChanges();
                             }
                         }
-
                     }
                     break;
                 case ColorType.ColorB: {
