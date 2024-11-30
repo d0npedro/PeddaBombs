@@ -5,7 +5,6 @@ using IPA.Config.Stores;
 using IPA.Loader;
 using SiraUtil.Zenject;
 using StreamPartyCommand.Installers;
-using StreamPartyCommand.Models;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
 
@@ -42,8 +41,6 @@ namespace StreamPartyCommand
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            FontAssetReader.TouchInstance();
-            ParticleAssetLoader.TouchInstance();
             var twitchFX = PluginManager.GetPluginFromId("TwitchFX");
             if (twitchFX != null) {
                 Logger.Debug("TwitchFX is Installing.");

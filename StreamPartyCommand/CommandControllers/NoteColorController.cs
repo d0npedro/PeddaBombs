@@ -16,17 +16,17 @@ namespace StreamPartyCommand.CommandControllers
         private void Start()
         {
             ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
-            this._rainbow = new Color[s_colorCount];
+            this.Colors = new Color[s_colorCount];
             var tmp = 1f / s_colorCount;
             for (var i = 0; i < s_colorCount; i++) {
                 var hue = tmp * i;
-                this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
+                this.Colors[i] = Color.HSVToRGB(hue, 1f, 1f);
             }
         }
 
         public string Key => CommandKey.NOTE_COLOR;
         public bool IsInstallTwitchFX { get; set; }
-        public Color[] Colors => this._rainbow;
+        public Color[] Colors { get; private set; }
         public bool RainbowLeft { get; private set; }
         public bool RainbowRight { get; private set; }
         public int LeftColorIndex { get; private set; }
@@ -72,7 +72,6 @@ namespace StreamPartyCommand.CommandControllers
         }
 
         private BeatmapUtil _util;
-        private Color[] _rainbow;
         public const int s_colorCount = 256;
 
         [Inject]

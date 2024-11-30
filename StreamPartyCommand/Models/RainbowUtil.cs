@@ -55,7 +55,7 @@ namespace StreamPartyCommand.Models
 
         public Color WallRainbowColor()
         {
-            var hue = (this._timeSource.songTime / 5f + 0.25f) % 1f;
+            var hue = ((this._timeSource.songTime / 5f) + 0.25f) % 1f;
             return Color.HSVToRGB(hue, 1f, 1f);
         }
     }

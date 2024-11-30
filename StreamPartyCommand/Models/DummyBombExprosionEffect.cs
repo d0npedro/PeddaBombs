@@ -1,6 +1,7 @@
 ﻿using StreamPartyCommand.Utilities;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace StreamPartyCommand.Models
 {
@@ -15,7 +16,7 @@ namespace StreamPartyCommand.Models
             if (this._particleSystem != null) {
                 Destroy(this._particleSystem);
             }
-            this._particleSystem = Instantiate(ParticleAssetLoader.instance.Particle);
+            this._particleSystem = Instantiate(this._particleAssetLoader.Particle);
             this._particleSystem.transform.SetParent(null, false);
             this._particleSystem.Stop();
         }
@@ -50,5 +51,12 @@ namespace StreamPartyCommand.Models
         private ParticleSystem _particleSystem;
         private GameNoteController _gameNoteController;
         private DummyBomb _dummyBomb;
+
+        [Inject]
+        public void Constractor(ParticleAssetLoader loader)
+        {
+            this._particleAssetLoader = loader;
+        }
+        private ParticleAssetLoader _particleAssetLoader;
     }
 }

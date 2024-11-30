@@ -8,8 +8,10 @@ namespace StreamPartyCommand.Installers
     {
         public override void InstallBindings()
         {
-            this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<CustomNoteUtil>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<CustomNoteUtil>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<FontAssetReader>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<ParticleAssetLoader>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         }
     }
 }

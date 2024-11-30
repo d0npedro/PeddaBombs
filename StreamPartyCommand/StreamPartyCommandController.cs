@@ -43,7 +43,7 @@ namespace StreamPartyCommand
         {
             var controllers = container.ResolveAll<ICommandable>();
             foreach (var commandController in controllers) {
-                this.CommandControllers.TryAdd(commandController.Key, commandController);
+                _ = this.CommandControllers.TryAdd(commandController.Key, commandController);
             }
             this._chatCoreWrapper = wrapper;
         }

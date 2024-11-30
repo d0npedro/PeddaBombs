@@ -12,17 +12,17 @@ namespace StreamPartyCommand.Installers
     {
         public override void InstallBindings()
         {
-            this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
-            this.Container.BindMemoryPool<FlyingBombNameEffect, FlyingBombNameEffect.Pool>().WithInitialSize(10).FromComponentInNewPrefab(this._flyingBombNameEffect).AsCached();
-            this.Container.BindInterfacesAndSelfTo<BombEffectSpowner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<RainbowUtil>().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<BombMeshGetter>().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
-            this.Container.BindInterfacesAndSelfTo<WallColorController>().FromNewComponentOnNewGameObject().AsSingle();
-            this.Container.BindInterfacesAndSelfTo<LightColorController>().FromNewComponentOnNewGameObject().AsSingle();
-            this.Container.BindInterfacesAndSelfTo<NoteColorController>().FromNewComponentOnNewGameObject().AsSingle();
-            this.Container.BindInterfacesAndSelfTo<SaberColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            _ = this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
+            _ = this.Container.BindMemoryPool<FlyingBombNameEffect, FlyingBombNameEffect.Pool>().WithInitialSize(10).FromComponentInNewPrefab(this._flyingBombNameEffect).AsCached();
+            _ = this.Container.BindInterfacesAndSelfTo<BombEffectSpowner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<RainbowUtil>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<BombMeshGetter>().AsSingle().NonLazy();
+            _ = this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
+            _ = this.Container.BindInterfacesAndSelfTo<WallColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            _ = this.Container.BindInterfacesAndSelfTo<LightColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            _ = this.Container.BindInterfacesAndSelfTo<NoteColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            _ = this.Container.BindInterfacesAndSelfTo<SaberColorController>().FromNewComponentOnNewGameObject().AsSingle();
 
             this.Container.RegisterRedecorator(new BasicNoteRegistration(this.RedecoreteNoteController));
             this.Container.RegisterRedecorator(new BurstSliderHeadNoteRegistration(this.RedecoreteSliderHeadNoteController));
@@ -31,21 +31,21 @@ namespace StreamPartyCommand.Installers
 
         private GameNoteController RedecoreteNoteController(GameNoteController noteController)
         {
-            noteController.gameObject.AddComponent<DummyBomb>();
-            noteController.gameObject.AddComponent<DummyBombExprosionEffect>();
-            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
+            _ = noteController.gameObject.AddComponent<DummyBomb>();
+            _ = noteController.gameObject.AddComponent<DummyBombExprosionEffect>();
+            _ = noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
             return noteController;
         }
 
         private GameNoteController RedecoreteSliderHeadNoteController(GameNoteController noteController)
         {
-            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
+            _ = noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
             return noteController;
         }
 
         private BurstSliderGameNoteController RedecoreteSliderNoteController(BurstSliderGameNoteController noteController)
         {
-            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
+            _ = noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
             return noteController;
         }
 
