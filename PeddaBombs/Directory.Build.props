@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This file contains project properties used by the build. -->
+<Project>
+  <PropertyGroup>
+    <ImportBSMTTargets>True</ImportBSMTTargets>
+    <BSMTProjectType>BSIPA</BSMTProjectType>
+  </PropertyGroup>
+  <ItemGroup>
+    <OutputCopy Include="$(OutputPath)PeddaBombs.dll" OutputPath="Plugins\PeddaBombs.dll" />
+    <OutputCopy Include="$(OutputPath)PeddaBombs.pdb" OutputPath="Plugins\PeddaBombs.pdb" />
+    <OutputCopy Include="$(OutputPath)Assets\exprosion.particle" OutputPath="UserData\PBParticleAssets\exprosion.particle" />
+    <OutputCopy Include="$(OutputPath)Assets\neontubes2 sdf.assets" OutputPath="UserData\PBFontAssets\Main\neontubes2 sdf.assets" />
+  </ItemGroup>
+</Project>

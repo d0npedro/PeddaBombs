@@ -1,0 +1,16 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "PeddaBombs",
+  "name": "PeddaBombs",
+  "author": "PeddaVomMond",
+  "version": "1.0.0",
+  "description": "",
+  "gameVersion": "1.39.1",
+  "dependsOn": {
+    "BSIPA": "^4.2.5",
+    "AssetBundleLoadingTools": "^1.1.9",
+    "CatCore": "^1.1.0",
+    "SiraUtil": "^3.1.14"
+  },
+  "features": []
+}
