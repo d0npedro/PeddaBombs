@@ -1,9 +1,19 @@
 ﻿using IPA.Config.Stores;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace PeddaBombs.Configuration
 {
+    // Neue Hilfsklasse, die einen Bomben-Command repräsentiert.
+    internal class BombCommand
+    {
+        // Der Chat-Befehl, z. B. "!rofl"
+        public virtual string Command { get; set; }
+        // Die Nachricht, die an die DummyBomb-Funktion übergeben wird, z. B. "ROFL !"
+        public virtual string Message { get; set; }
+    }
+
     internal class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
@@ -18,28 +28,56 @@ namespace PeddaBombs.Configuration
         public virtual int NameObjectLayer { get; set; } = 0;
         public virtual bool ReloadeIfMissCut { get; set; } = true;
 
+        // Statt eines Dictionary verwenden wir jetzt eine Liste, die von BSIPA sauber serialisiert wird.
+        // Beim ersten Laden des Plugins wird dann diese Liste als Array in der JSON-Datei erscheinen.
+        public virtual List<BombCommand> BombenCommands { get; set; } = new List<BombCommand>
+        {
+            new BombCommand { Command = "!rofl", Message = "ROFL !" },
+            new BombCommand { Command = "!awesome", Message = "You are awesome" },
+            new BombCommand { Command = "!usw", Message = "Und so Weiter" }
+        };
+
         /// <summary>
-        /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
+        /// Diese Methode wird aufgerufen, wenn BSIPA die Config von der Festplatte liest
+        /// (auch, wenn Dateiänderungen erkannt werden).
         /// </summary>
         public virtual void OnReload()
         {
-            // Do stuff after config is read from disk.
+            // Hier könnte man prüfen, ob BombenCommands leer ist und ggf. Default-Werte setzen.
+            if (BombenCommands == null || BombenCommands.Count == 0) {
+                BombenCommands = new List<BombCommand>
+                {
+                    new BombCommand { Command = "!rofl", Message = "ROFL !" },
+                    new BombCommand { Command = "!awesome", Message = "You are awesome" },
+                    new BombCommand { Command = "!usw", Message = "Und so Weiter" }
+                };
+            }
         }
 
         /// <summary>
-        /// Call this to force BSIPA to update the config file. This is also called by BSIPA if it detects the file was modified.
+        /// Diese Methode wird verwendet, um BSIPA mitzuteilen, dass die Config aktualisiert werden soll.
+        /// Sie wird auch aufgerufen, wenn BSIPA feststellt, dass die Datei geändert wurde.
         /// </summary>
         public virtual void Changed()
         {
-            // Do stuff when the config is changed.
+            // Hier kannst du Code einfügen, der ausgeführt wird, wenn sich die Config ändert.
         }
 
         /// <summary>
-        /// Call this to have BSIPA copy the values from <paramref name="other"/> into this config.
+        /// Mit dieser Methode werden die Werte von einer anderen Config-Instanz in diese kopiert.
         /// </summary>
         public virtual void CopyFrom(PluginConfig other)
         {
-            // This instance's members populated from other
+            this.IsBombEnable = other.IsBombEnable;
+            this.TextViewSec = other.TextViewSec;
+            this.MissTextViewSec = other.MissTextViewSec;
+            this.IsSaberColorEnable = other.IsSaberColorEnable;
+            this.IsWallColorEnable = other.IsWallColorEnable;
+            this.IsNoteColorEnable = other.IsNoteColorEnable;
+            this.IsPratformColorEnable = other.IsPratformColorEnable;
+            this.NameObjectLayer = other.NameObjectLayer;
+            this.ReloadeIfMissCut = other.ReloadeIfMissCut;
+            this.BombenCommands = other.BombenCommands;
         }
     }
 }

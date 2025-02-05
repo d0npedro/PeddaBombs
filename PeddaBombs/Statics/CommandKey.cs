@@ -1,4 +1,4 @@
-﻿namespace PeddaBombs.Staics
+﻿namespace PeddaBombs.Statics
 {
     public class CommandKey
     {

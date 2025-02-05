@@ -235,10 +235,10 @@
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\neontubes2 sdf.assets">
+    <None Include="Assets\neontubes2sdf.assets">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Assets\exprosion.particle">
+    <None Include="Assets\explosion.particle">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
