@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<BeatSaberDir>C:\Users\d0npedro\BSManager\BSInstances\1.39.1\</BeatSaberDir>
+		<!-- Path to your Beat Saber install, only set if different from BeatSaberDir. -->
+		<GameDirectory>C:\Users\d0npedro\BSManager\BSInstances\1.39.1\</GameDirectory>
+	</PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>C:\Users\d0npedro\BSManager\BSInstances\1.39.1\Beat Saber_Data\Managed;C:\Users\d0npedro\BSManager\BSInstances\1.39.1\Libs;C:\Users\d0npedro\BSManager\BSInstances\1.39.1\Plugins</ReferencePath>
+  </PropertyGroup>
+</Project>
