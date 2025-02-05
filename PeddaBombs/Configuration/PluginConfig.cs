@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace PeddaBombs.Configuration
 {
-    // Neue Hilfsklasse, die einen Bomben-Command repräsentiert.
+    // Hilfsklasse, die einen Bomben-Command repräsentiert.
     internal class BombCommand
     {
         // Der Chat-Befehl, z. B. "!rofl"
@@ -28,14 +28,20 @@ namespace PeddaBombs.Configuration
         public virtual int NameObjectLayer { get; set; } = 0;
         public virtual bool ReloadeIfMissCut { get; set; } = true;
 
-        // Statt eines Dictionary verwenden wir jetzt eine Liste, die von BSIPA sauber serialisiert wird.
-        // Beim ersten Laden des Plugins wird dann diese Liste als Array in der JSON-Datei erscheinen.
-        public virtual List<BombCommand> BombenCommands { get; set; } = new List<BombCommand>
+        // Privates Backing-Field, das die Default-Werte enthält.
+        private List<BombCommand> _bombenCommands = new List<BombCommand>
         {
             new BombCommand { Command = "!rofl", Message = "ROFL !" },
             new BombCommand { Command = "!awesome", Message = "You are awesome" },
             new BombCommand { Command = "!usw", Message = "Und so Weiter" }
         };
+
+        // Die BombenCommands-Eigenschaft verwendet das Backing-Field.
+        public virtual List<BombCommand> BombenCommands
+        {
+            get => _bombenCommands;
+            set => _bombenCommands = value;
+        }
 
         /// <summary>
         /// Diese Methode wird aufgerufen, wenn BSIPA die Config von der Festplatte liest
@@ -43,7 +49,7 @@ namespace PeddaBombs.Configuration
         /// </summary>
         public virtual void OnReload()
         {
-            // Hier könnte man prüfen, ob BombenCommands leer ist und ggf. Default-Werte setzen.
+            // Falls aus irgendeinem Grund BombenCommands leer oder null ist, setzen wir die Default-Werte.
             if (BombenCommands == null || BombenCommands.Count == 0) {
                 BombenCommands = new List<BombCommand>
                 {
