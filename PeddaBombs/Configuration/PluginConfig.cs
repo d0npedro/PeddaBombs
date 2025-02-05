@@ -50,7 +50,8 @@ namespace PeddaBombs.Configuration
         public virtual void OnReload()
         {
             // Falls aus irgendeinem Grund BombenCommands leer oder null ist, setzen wir die Default-Werte.
-            if (BombenCommands == null || BombenCommands.Count == 0) {
+            if (BombenCommands == null || BombenCommands.Count == 0)
+            {
                 BombenCommands = new List<BombCommand>
                 {
                     new BombCommand { Command = "!rofl", Message = "ROFL !" },

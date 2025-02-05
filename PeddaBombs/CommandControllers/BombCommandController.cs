@@ -29,20 +29,24 @@ namespace PeddaBombs.CommandControllers
             string command = message.Message.Trim();
 
             // Standardbefehl: Wenn der Befehl genau "!bomb" lautet, verwende den Anzeigenamen.
-            if (command.Equals(CommandKey.BOMB, System.StringComparison.OrdinalIgnoreCase)) {
+            if (command.Equals(CommandKey.BOMB, System.StringComparison.OrdinalIgnoreCase))
+            {
                 DummyBomb.Senders.Enqueue(message.Sender.DisplayName);
                 return;
             }
-            else {
+            else
+            {
                 // Suche in der Liste der Bombenbefehle nach einem Eintrag, der dem eingegebenen Befehl entspricht.
                 // Hier nutzen wir LINQ, um das erste passende BombCommand-Objekt zu finden.
                 var bombCmd = PluginConfig.Instance.BombenCommands
                     .FirstOrDefault(b => b.Command.Equals(command, System.StringComparison.OrdinalIgnoreCase));
 
-                if (bombCmd != null) {
+                if (bombCmd != null)
+                {
                     // Wenn der konfigurierten Nachricht leer ist, entferne alternativ das führende "!".
                     string bombText = bombCmd.Message;
-                    if (string.IsNullOrEmpty(bombText)) {
+                    if (string.IsNullOrEmpty(bombText))
+                    {
                         bombText = command.TrimStart('!');
                     }
                     // Übergibt den konfigurierten Text an die DummyBomb.
