@@ -3,12 +3,9 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace PeddaBombs.Models
-{
-    public class DummyBombExprosionEffect : MonoBehaviour, INoteControllerNoteWasCutEvent
-    {
-        public void Awake()
-        {
+namespace PeddaBombs.Models {
+    public class DummyBombExprosionEffect : MonoBehaviour, INoteControllerNoteWasCutEvent {
+        public void Awake() {
             if (CustomNoteUtil.TryGetGameNoteController(this.gameObject, out this._gameNoteController)) {
                 this._gameNoteController.noteWasCutEvent.Add(this);
             }
@@ -20,8 +17,7 @@ namespace PeddaBombs.Models
             this._particleSystem.transform.SetParent(null, false);
             this._particleSystem.Stop();
         }
-        public void OnDestroy()
-        {
+        public void OnDestroy() {
             if (this._particleSystem != null) {
                 Destroy(this._particleSystem);
                 this._particleSystem = null;
@@ -29,19 +25,16 @@ namespace PeddaBombs.Models
             this._gameNoteController.noteWasCutEvent.Remove(this);
         }
 
-        public virtual void SpawnExplosion(Vector3 pos)
-        {
+        public virtual void SpawnExplosion(Vector3 pos) {
             try {
                 this._particleSystem.transform.position = pos;
                 this._particleSystem.Emit(50000);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Plugin.Log.Error(e);
             }
         }
 
-        public void HandleNoteControllerNoteWasCut(NoteController noteController, in NoteCutInfo noteCutInfo)
-        {
+        public void HandleNoteControllerNoteWasCut(NoteController noteController, in NoteCutInfo noteCutInfo) {
             if (!noteCutInfo.allIsOK || !this._dummyBomb.EnableBombEffect) {
                 return;
             }
@@ -53,8 +46,7 @@ namespace PeddaBombs.Models
         private DummyBomb _dummyBomb;
 
         [Inject]
-        public void Constractor(ParticleAssetLoader loader)
-        {
+        public void Constractor(ParticleAssetLoader loader) {
             this._particleAssetLoader = loader;
         }
         private ParticleAssetLoader _particleAssetLoader;

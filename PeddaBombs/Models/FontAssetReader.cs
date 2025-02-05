@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace PeddaBombs.Models
-{
-    public class FontAssetReader : MonoBehaviour, IAsyncInitializable
-    {
+namespace PeddaBombs.Models {
+    public class FontAssetReader : MonoBehaviour, IAsyncInitializable {
         private static readonly string FontAssetPath = Path.Combine(Environment.CurrentDirectory, "UserData", "PBFontAssets");
         private static readonly string MainFontPath = Path.Combine(FontAssetPath, "Main");
 
@@ -22,10 +20,8 @@ namespace PeddaBombs.Models
 
         private TMP_FontAsset _mainFont = null;
 
-        public TMP_FontAsset MainFont
-        {
-            get
-            {
+        public TMP_FontAsset MainFont {
+            get {
                 if (!this._mainFont) {
                     return null;
                 }
@@ -37,8 +33,7 @@ namespace PeddaBombs.Models
             private set => this._mainFont = value;
         }
 
-        public async Task CreateChatFont()
-        {
+        public async Task CreateChatFont() {
             this.IsInitialized = false;
             while (TMPNoGlowFontShader == null) {
                 await Task.Yield();
@@ -71,8 +66,7 @@ namespace PeddaBombs.Models
             this.IsInitialized = true;
         }
 
-        public async Task InitializeAsync(CancellationToken token)
-        {
+        public async Task InitializeAsync(CancellationToken token) {
             await this.CreateChatFont();
         }
     }

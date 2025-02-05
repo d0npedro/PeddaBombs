@@ -2,10 +2,8 @@
 using UnityEngine;
 using Zenject;
 
-namespace PeddaBombs.Models
-{
-    public class RainbowUtil
-    {
+namespace PeddaBombs.Models {
+    public class RainbowUtil {
         private static readonly int s_addColorID = Shader.PropertyToID("_AddColor");
         private static readonly int s_tintColorID = Shader.PropertyToID("_TintColor");
 
@@ -18,19 +16,16 @@ namespace PeddaBombs.Models
         private static readonly FieldInfo s_materialPropertyBlockControllers = typeof(StretchableObstacle).GetField("_materialPropertyBlockControllers", BindingFlags.NonPublic | BindingFlags.Instance);
 
         [Inject]
-        public RainbowUtil(IAudioTimeSource timeSource, BasicBeatmapObjectManager beatmapObjectManager)
-        {
+        public RainbowUtil(IAudioTimeSource timeSource, BasicBeatmapObjectManager beatmapObjectManager) {
             this._timeSource = timeSource;
             this._beatmapObjectManager = beatmapObjectManager;
         }
 
-        public void SetWallRainbowColor(Color color)
-        {
+        public void SetWallRainbowColor(Color color) {
             this.UpdateWallRainbowColor(color);
         }
 
-        private void UpdateWallRainbowColor(Color color)
-        {
+        private void UpdateWallRainbowColor(Color color) {
             foreach (var wall in this._beatmapObjectManager.activeObstacleControllers) {
                 var stretchable = (StretchableObstacle)s_stretchableObstacle.GetValue(wall);
                 var frame = (ParametricBoxFrameController)s_obstacleFrame.GetValue(stretchable);
@@ -53,8 +48,7 @@ namespace PeddaBombs.Models
             }
         }
 
-        public Color WallRainbowColor()
-        {
+        public Color WallRainbowColor() {
             var hue = ((this._timeSource.songTime / 5f) + 0.25f) % 1f;
             return Color.HSVToRGB(hue, 1f, 1f);
         }

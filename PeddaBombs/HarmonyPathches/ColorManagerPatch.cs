@@ -2,13 +2,10 @@
 using System;
 using UnityEngine;
 
-namespace PeddaBombs.HarmonyPathches
-{
+namespace PeddaBombs.HarmonyPathches {
     [HarmonyPatch(typeof(ColorManager), nameof(ColorManager.ColorForType), new Type[] { typeof(ColorType) })]
-    public class ColorManagerColorForTypePatch
-    {
-        public static bool Prefix(ref ColorType type, ref Color __result)
-        {
+    public class ColorManagerColorForTypePatch {
+        public static bool Prefix(ref ColorType type, ref Color __result) {
             if (!Enable) {
                 return true;
             }

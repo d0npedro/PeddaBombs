@@ -10,5 +10,6 @@
     <OutputCopy Include="$(OutputPath)PeddaBombs.pdb" OutputPath="Plugins\PeddaBombs.pdb" />
     <OutputCopy Include="$(OutputPath)Assets\explosion.particle" OutputPath="UserData\PBParticleAssets\explosion.particle" />
     <OutputCopy Include="$(OutputPath)Assets\neontubes2sdf.assets" OutputPath="UserData\PBFontAssets\Main\neontubes2sdf.assets" />
+    <OutputCopy Include="$(OutputPath)Assets\commands.json" OutputPath="UserData\PeddaBombs\commands.json" />
   </ItemGroup>
 </Project>

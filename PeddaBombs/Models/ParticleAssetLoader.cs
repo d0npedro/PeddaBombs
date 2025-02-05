@@ -6,23 +6,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace PeddaBombs.Models
-{
-    public class ParticleAssetLoader : MonoBehaviour, IAsyncInitializable
-    {
+namespace PeddaBombs.Models {
+    public class ParticleAssetLoader : MonoBehaviour, IAsyncInitializable {
         private static readonly string FontAssetPath = Path.Combine(Environment.CurrentDirectory, "UserData", "PBParticleAssets");
         public bool IsInitialized { get; private set; } = false;
         public ParticleSystem Particle { get; private set; } = null;
 
-        public void OnDestroy()
-        {
+        public void OnDestroy() {
             if (this.Particle != null) {
                 Destroy(this.Particle);
             }
         }
 
-        public async Task LoadParticle()
-        {
+        public async Task LoadParticle() {
             this.IsInitialized = false;
 
             if (this.Particle != null) {
@@ -54,8 +50,7 @@ namespace PeddaBombs.Models
             this.IsInitialized = true;
         }
 
-        public async Task InitializeAsync(CancellationToken token)
-        {
+        public async Task InitializeAsync(CancellationToken token) {
             await this.LoadParticle();
         }
     }

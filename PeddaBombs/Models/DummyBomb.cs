@@ -5,18 +5,15 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace PeddaBombs.Models
-{
-    public class DummyBomb : MonoBehaviour, INoteControllerDidInitEvent, INoteControllerNoteDidStartJumpEvent
-    {
+namespace PeddaBombs.Models {
+    public class DummyBomb : MonoBehaviour, INoteControllerDidInitEvent, INoteControllerNoteDidStartJumpEvent {
 
         public GameNoteController Controller { get; private set; }
         public string Text { get; set; }
         public static ConcurrentQueue<string> Senders { get; } = new ConcurrentQueue<string>();
         public bool EnableBombEffect { get; set; } = false;
 
-        protected void Awake()
-        {
+        protected void Awake() {
             if (CustomNoteUtil.TryGetGameNoteController(this.gameObject, out var component)) {
                 this.Controller = component;
                 this.Controller.didInitEvent.Add(this);
@@ -29,8 +26,7 @@ namespace PeddaBombs.Models
             var disappearingArrowController = this.gameObject.GetComponentInParent<DisappearingArrowController>();
             this._noteMesh = disappearingArrowController.GetField<MeshRenderer, DisappearingArrowControllerBase<GameNoteController>>("_cubeMeshRenderer").gameObject.GetComponentsInChildren<MeshRenderer>(true).FirstOrDefault(x => x.name == "NoteCube");
         }
-        protected void OnDestroy()
-        {
+        protected void OnDestroy() {
             if (this.Controller != null) {
                 this.Controller.didInitEvent.Remove(this);
                 this.Controller.noteDidStartJumpEvent.Remove(this);
@@ -40,8 +36,7 @@ namespace PeddaBombs.Models
             }
         }
 
-        public void HandleNoteControllerDidInit(NoteControllerBase noteController)
-        {
+        public void HandleNoteControllerDidInit(NoteControllerBase noteController) {
             if (this.Controller.noteVisualModifierType == NoteVisualModifierType.Ghost) {
                 return;
             }
@@ -54,8 +49,7 @@ namespace PeddaBombs.Models
                 this._bombMesh.gameObject.transform.SetParent(this._noteCube, false);
             }
         }
-        public void HandleNoteControllerNoteDidStartJump(NoteController noteController)
-        {
+        public void HandleNoteControllerNoteDidStartJump(NoteController noteController) {
             if (this.Controller.noteVisualModifierType == NoteVisualModifierType.Ghost) {
                 return;
             }
@@ -67,8 +61,7 @@ namespace PeddaBombs.Models
             }
         }
 
-        private void SetActiveBomb(bool active, in Color noteColor, bool isInstallCustomNote = false)
-        {
+        private void SetActiveBomb(bool active, in Color noteColor, bool isInstallCustomNote = false) {
             if (!isInstallCustomNote && this._noteMesh != null) {
                 this._noteMesh.forceRenderingOff = active;
             }
@@ -88,8 +81,7 @@ namespace PeddaBombs.Models
         private CustomNoteUtil _customNoteUtil;
 
         [Inject]
-        public void Init(CustomNoteUtil customNoteUtil)
-        {
+        public void Init(CustomNoteUtil customNoteUtil) {
             this._customNoteUtil = customNoteUtil;
             this._selectedNoteIndex = this._customNoteUtil.SelectedNoteIndex;
             this._isCustomNote = this._customNoteUtil.IsInstallCustomNote && this._customNoteUtil.Enabled && 1 <= this._selectedNoteIndex;

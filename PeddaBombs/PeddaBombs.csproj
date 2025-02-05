@@ -195,6 +195,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandControllers\BombCommandController.cs" />
+    <Compile Include="Configuration\ChatCommand.cs" />
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="HarmonyPathches\ColorManagerPatch.cs" />
@@ -204,7 +206,6 @@
     <Compile Include="Installers\PBGameInstaller.cs" />
     <Compile Include="Installers\PBMenuInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
-    <Compile Include="CommandControllers\BombCommandController.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\BeatmapUtil.cs" />
     <Compile Include="Models\BombEffectSpowner.cs" />
@@ -235,6 +236,9 @@
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\commands.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Assets\neontubes2sdf.assets">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -253,6 +257,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

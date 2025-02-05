@@ -4,20 +4,16 @@ using System.Reflection;
 using UnityEngine;
 using Zenject;
 
-namespace PeddaBombs.Models
-{
-    public class NoteRaibowColorController : MonoBehaviour, INoteControllerDidInitEvent, INoteControllerNoteDidFinishJumpEvent
-    {
+namespace PeddaBombs.Models {
+    public class NoteRaibowColorController : MonoBehaviour, INoteControllerDidInitEvent, INoteControllerNoteDidFinishJumpEvent {
 
-        public void Awake()
-        {
+        public void Awake() {
             _ = CustomNoteUtil.TryGetColorNoteVisuals(this.gameObject, out this._colorNoteVisuals);
             this._noteController = this.gameObject.GetComponent<NoteController>();
             this._noteController.didInitEvent.Add(this);
             this._noteController.noteDidFinishJumpEvent.Add(this);
         }
-        public void Update()
-        {
+        public void Update() {
             if (!this._enable) {
                 return;
             }
@@ -35,8 +31,7 @@ namespace PeddaBombs.Models
                         var color = this._noteColorController.Colors[this._noteColorController.LeftColorIndex];
                         if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIndex) {
                             this._customNoteUtil.SetColor(this.gameObject, color);
-                        }
-                        else {
+                        } else {
                             foreach (var propertyBlockController in (MaterialPropertyBlockController[])s_materialPropertyBlockControllerArray.GetValue(this._colorNoteVisuals)) {
                                 propertyBlockController.materialPropertyBlock.SetColor(s_colorID, color);
                                 propertyBlockController.ApplyChanges();
@@ -51,8 +46,7 @@ namespace PeddaBombs.Models
                         var color = this._noteColorController.Colors[this._noteColorController.RightColorIndex];
                         if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIndex) {
                             this._customNoteUtil.SetColor(this.gameObject, color);
-                        }
-                        else {
+                        } else {
                             foreach (var propertyBlockController in (MaterialPropertyBlockController[])s_materialPropertyBlockControllerArray.GetValue(this._colorNoteVisuals)) {
                                 propertyBlockController.materialPropertyBlock.SetColor(s_colorID, color);
                                 propertyBlockController.ApplyChanges();
@@ -66,20 +60,17 @@ namespace PeddaBombs.Models
             }
         }
 
-        public void OnDestroy()
-        {
+        public void OnDestroy() {
             if (this._noteController != null) {
                 this._noteController.didInitEvent.Remove(this);
                 this._noteController.noteDidFinishJumpEvent.Remove(this);
             }
         }
-        public void HandleNoteControllerDidInit(NoteControllerBase noteController)
-        {
+        public void HandleNoteControllerDidInit(NoteControllerBase noteController) {
             this._enable = true;
         }
 
-        public void HandleNoteControllerNoteDidFinishJump(NoteController noteController)
-        {
+        public void HandleNoteControllerNoteDidFinishJump(NoteController noteController) {
             this._enable = false;
         }
 
@@ -93,8 +84,7 @@ namespace PeddaBombs.Models
         private bool _enable;
 
         [Inject]
-        public void Constract(NoteColorController noteColorController, BeatmapUtil util, CustomNoteUtil customNoteUtil)
-        {
+        public void Constract(NoteColorController noteColorController, BeatmapUtil util, CustomNoteUtil customNoteUtil) {
             this._noteColorController = noteColorController;
             this._beatmapUtil = util;
             this._customNoteUtil = customNoteUtil;

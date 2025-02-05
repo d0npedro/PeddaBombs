@@ -1,0 +1,20 @@
+[
+    {
+        "CommandKey": "!bomb",
+        "CommandType": "bomb",
+        "PermissionLevel": 0,
+        "Message": ""
+    },
+    {
+        "CommandKey": "!setnotecolor",
+        "CommandType": "noteColor",
+        "PermissionLevel": 1,
+        "Message": ""
+    },
+    {
+        "CommandKey": "!admincmd",
+        "CommandType": "admin",
+        "PermissionLevel": 2,
+        "Message": "Nur für Admins!"
+    }
+]
