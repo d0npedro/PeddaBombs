@@ -195,7 +195,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandControllers\BombCommandController.cs" />
     <Compile Include="Configuration\ChatCommand.cs" />
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
@@ -214,14 +213,11 @@
     <Compile Include="Models\DummyBomb.cs" />
     <Compile Include="Models\DummyBombExprosionEffect.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
-    <Compile Include="CommandControllers\LightColorController.cs" />
-    <Compile Include="CommandControllers\NoteColorController.cs" />
-    <Compile Include="CommandControllers\SaberColorController.cs" />
-    <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
     <Compile Include="Models\NoteRaibowColorController.cs" />
     <Compile Include="Models\ParticleAssetLoader.cs" />
+    <Compile Include="CommandControllers\NoteColorController.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Statics\CommandKey.cs" />

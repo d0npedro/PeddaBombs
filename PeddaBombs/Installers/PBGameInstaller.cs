@@ -1,10 +1,14 @@
 ﻿using SiraUtil.Extras;
 using SiraUtil.Objects.Beatmap;
-using PeddaBombs.CommandControllers;
 using PeddaBombs.Models;
+using PeddaBombs.Utilities;
+using PeddaBombs.CommandControllers;
 using TMPro;
 using UnityEngine;
 using Zenject;
+using System.IO;
+using System;
+using PeddaBombs.Interfaces;
 
 namespace PeddaBombs.Installers {
     public class PBGameInstaller : Installer {
@@ -15,15 +19,12 @@ namespace PeddaBombs.Installers {
             _ = this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
             _ = this.Container.BindInterfacesAndSelfTo<RainbowUtil>().AsSingle().NonLazy();
             _ = this.Container.BindInterfacesAndSelfTo<BombMeshGetter>().AsSingle().NonLazy();
-            _ = this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
-            _ = this.Container.BindInterfacesAndSelfTo<WallColorController>().FromNewComponentOnNewGameObject().AsSingle();
-            _ = this.Container.BindInterfacesAndSelfTo<LightColorController>().FromNewComponentOnNewGameObject().AsSingle();
             _ = this.Container.BindInterfacesAndSelfTo<NoteColorController>().FromNewComponentOnNewGameObject().AsSingle();
-            _ = this.Container.BindInterfacesAndSelfTo<SaberColorController>().FromNewComponentOnNewGameObject().AsSingle();
 
             this.Container.RegisterRedecorator(new BasicNoteRegistration(this.RedecoreteNoteController));
             this.Container.RegisterRedecorator(new BurstSliderHeadNoteRegistration(this.RedecoreteSliderHeadNoteController));
             this.Container.RegisterRedecorator(new BurstSliderNoteRegistration(this.RedecoreteSliderNoteController));
+
         }
 
         private GameNoteController RedecoreteNoteController(GameNoteController noteController) {

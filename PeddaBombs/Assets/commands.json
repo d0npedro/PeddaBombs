@@ -1,20 +1,10 @@
 [
     {
-        "CommandKey": "!bomb",
-        "CommandType": "bomb",
-        "PermissionLevel": 0,
-        "Message": ""
+        "CommandText": "!hello",
+        "ResponseText": "Hello, world!"
     },
     {
-        "CommandKey": "!setnotecolor",
-        "CommandType": "noteColor",
-        "PermissionLevel": 1,
-        "Message": ""
-    },
-    {
-        "CommandKey": "!admincmd",
-        "CommandType": "admin",
-        "PermissionLevel": 2,
-        "Message": "Nur für Admins!"
+        "CommandText": "!bye",
+        "ResponseText": "Goodbye!"
     }
 ]
