@@ -16,7 +16,7 @@ namespace PeddaBombs {
         [Inject]
         public void Constractor(ChatCoreWrapper wrapper) {
             this._chatCoreWrapper = wrapper;
-            this._commands = CommandLoader.LoadCommands(Path.Combine(Environment.CurrentDirectory, "UserData/PeddaBombs", "commands.json"));
+            this._commands = CommandLoader.LoadCommands(Path.Combine(Environment.CurrentDirectory, "UserData", "PeddaBombsCommands.json"));
         }
 
         private void Awake() {
