@@ -28,10 +28,10 @@ namespace PeddaBombs.Views {
             get => PluginConfig.Instance.IsNoteColorEnable;
             set => PluginConfig.Instance.IsNoteColorEnable = value;
         }
-        [UIValue("is-pratformcolor-enable")]
-        public virtual bool IsPratformColorEnable {
-            get => PluginConfig.Instance.IsPratformColorEnable;
-            set => PluginConfig.Instance.IsPratformColorEnable = value;
+        [UIValue("is-platformcolor-enable")]
+        public virtual bool IsPlatformColorEnable {
+            get => PluginConfig.Instance.IsPlatformColorEnable;
+            set => PluginConfig.Instance.IsPlatformColorEnable = value;
         }
 
         public void Initialize() {

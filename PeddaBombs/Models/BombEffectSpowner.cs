@@ -44,7 +44,7 @@ namespace PeddaBombs.Models {
             if (string.IsNullOrEmpty(dummyBomb.Text)) {
                 return;
             }
-            if (PluginConfig.Instance.ReloadeIfMissCut) {
+            if (PluginConfig.Instance.ReloadIfMissCut) {
                 DummyBomb.Senders.Enqueue(dummyBomb.Text);
                 dummyBomb.Text = "";
             } else {

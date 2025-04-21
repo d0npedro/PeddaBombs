@@ -12,9 +12,9 @@ namespace PeddaBombs.Configuration {
         public virtual bool IsSaberColorEnable { get; set; } = true;
         public virtual bool IsWallColorEnable { get; set; } = true;
         public virtual bool IsNoteColorEnable { get; set; } = true;
-        public virtual bool IsPratformColorEnable { get; set; } = true;
+        public virtual bool IsPlatformColorEnable { get; set; } = true;
         public virtual int NameObjectLayer { get; set; } = 0;
-        public virtual bool ReloadeIfMissCut { get; set; } = true;
+        public virtual bool ReloadIfMissCut { get; set; } = true;
 
         public virtual void OnReload() {}
 
